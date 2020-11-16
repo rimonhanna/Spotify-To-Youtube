@@ -1,0 +1,8 @@
+certifi==2020.11.8
+chardet==3.0.4
+idna==2.10
+requests==2.25.0
+selenium==3.141.0
+six==1.15.0
+spotipy==2.16.1
+urllib3==1.26.2

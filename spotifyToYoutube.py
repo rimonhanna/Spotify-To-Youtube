@@ -21,28 +21,28 @@ from selenium.webdriver.common.keys import Keys
 
 class SpotifyToYoutube():
 
-    def setUp(self):
+    def set_up(self):
         self.rootdir = os.path.dirname(os.path.realpath(__file__))
         self.driver = webdriver.Firefox(executable_path=self.rootdir + '/geckodriver')
         self.driver.implicitly_wait(30)
-        self.verificationErrors = []
+        self.verification_errors = []
         self.accept_next_alert = True
 
-    def loginToGoogle(self):
+    def login_to_google(self):
         url = 'https://stackoverflow.com/users/login?ssrc=head&returnurl=https%3a%2f%2fstackoverflow.com%2f'
         self.driver.get(url)
 
         self.driver.find_element_by_xpath("//div[@id='openid-buttons']/button").click()
         
-        self.driver.find_element_by_id("identifierId").send_keys(APIs["google"]["mail_address"])
+        self.driver.find_element_by_id("identifierId").send_keys(jsonConfig["google"]["mail_address"])
         self.driver.find_element_by_id("identifierNext").click()
 
         WebDriverWait(self.driver, 3).until(expected_conditions.element_to_be_clickable((By.NAME, "password")))
-        self.driver.find_element_by_name("password").send_keys(APIs["google"]["password"])
+        self.driver.find_element_by_name("password").send_keys(jsonConfig["google"]["password"])
         self.driver.find_element_by_id("passwordNext").click()
         time.sleep(3)
         
-    def addToPlaylist(self, url):
+    def add_to_playlist(self, url):
         try:
             driver = self.driver
             driver.get(url)
@@ -59,13 +59,9 @@ class SpotifyToYoutube():
             WebDriverWait(driver, 10).until(expected_conditions.visibility_of(element))
             element.click()
 
-            element = driver.find_element_by_xpath("//yt-formatted-string[@title='" + APIs["google"]["playlist"] + "']")
+            element = driver.find_element_by_xpath("//yt-formatted-string[@title='" + jsonConfig["google"]["playlist"] + "']")
             WebDriverWait(driver, 10).until(expected_conditions.visibility_of(element))
             element.click()
-
-            # element = driver.find_element_by_xpath("//yt-formatted-string[contains(text(),'Add to liked songs')]")
-            # WebDriverWait(driver, 10).until(expected_conditions.visibility_of(element))
-            # element.click()
             
         except ElementClickInterceptedException:
             pass
@@ -75,58 +71,60 @@ class SpotifyToYoutube():
             pass
 
 
-    def getTracks(self, playlistURL):
+    def get_tracks(self, playlist_url):
         # Creating and authenticating our Spotify app.
-        client_credentials_manager = SpotifyClientCredentials(APIs["spotify"]["client_id"], APIs["spotify"]["client_secret"])
+        client_credentials_manager = SpotifyClientCredentials(jsonConfig["spotify"]["client_id"], jsonConfig["spotify"]["client_secret"])
         spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
         condition = True
-        trackList = []
+        track_list = []
         counter = 0
         while condition:
             # Getting a playlist.
-            results = spotify.user_playlist_tracks(user="",playlist_id=playlistURL)
+            results = spotify.user_playlist_tracks(user="", playlist_id=playlist_url)
 
             # For each track in the playlist.
             for i in results["items"]:
                 # In case there's only one artist.
                 if (i["track"]["artists"].__len__() == 1):
                     # We add trackName - artist.
-                    trackList.append(i["track"]["name"] + " - " + i["track"]["artists"][0]["name"])
+                    track_list.append(i["track"]["name"] + " - " + i["track"]["artists"][0]["name"])
                 # In case there's more than one artist.
                 else:
-                    nameString = ""
+                    name_string = ""
                     # For each artist in the track.
                     for index, b in enumerate(i["track"]["artists"]):
-                        nameString += (b["name"])
+                        name_string += (b["name"])
                         # If it isn't the last artist.
                         if (i["track"]["artists"].__len__() - 1 != index):
-                            nameString += ", "
+                            name_string += ", "
                     # Adding the track to the list.
-                    trackList.append(i["track"]["name"] + " - " + nameString)
+                    track_list.append(i["track"]["name"] + " - " + name_string)
             counter = counter + 100
             condition = counter < results["total"]
-        return trackList
+        return track_list
 
-    def openInYoutubeMusic(self, songName):
-        self.addToPlaylist('https://music.youtube.com/search?q='+songName)
+    def open_in_youtube_music(self, song_name):
+        self.add_to_playlist('https://music.youtube.com/search?q=' + song_name)
 
 # Opening our JSON configuration file (which has our tokens).
 with open("config.json", encoding='utf-8-sig') as json_file:
-    APIs = json.load(json_file)    
+    jsonConfig = json.load(json_file)    
 
 if (__name__ == "__main__"):
     spotifyToYoutube = SpotifyToYoutube()
-    tracks = spotifyToYoutube.getTracks(str(input("Insert Spotify playlist URL: ")))
+    
+    playlist_url = jsonConfig["spotify"]["playlist"]
+    tracks = spotifyToYoutube.get_tracks(playlist_url)
     
     print("Searching songs...")
     songs = []
-    spotifyToYoutube.setUp()
-    spotifyToYoutube.loginToGoogle()
+    spotifyToYoutube.set_up()
+    spotifyToYoutube.login_to_google()
 
     for i in tracks:
         print(i)
-        spotifyToYoutube.openInYoutubeMusic(i)
+        spotifyToYoutube.open_in_youtube_music(i)
         
     print("Migration finished!")
     spotifyToYoutube.driver.quit()

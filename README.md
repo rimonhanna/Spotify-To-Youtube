@@ -13,7 +13,8 @@ All you gotta do is insert your <b> >>PUBLIC<< </b> <a href="http://www.spotify.
     "spotify":
     {
         "client_id": "your_spotify_client_id",
-        "client_secret": "your_spotify_client_secret"
+        "client_secret": "your_spotify_client_secret",
+        "playlist": "source_playlist_url"
     },
     "google":
     {
