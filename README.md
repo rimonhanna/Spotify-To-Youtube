@@ -31,4 +31,4 @@ I used the following libraries:<br>
   - <a href="https://selenium-python.readthedocs.io/">Selenium Python (For adding to the YouTube playlist automation)</a>
 
 # Why did you make it?
-Just for fun :) and it might actually be useful to someone. I think <a href="http://discord.app">Discord</a> bots could use that to queue songs and stuff. 
+Just for fun :) and it might actually be useful to someone. 
