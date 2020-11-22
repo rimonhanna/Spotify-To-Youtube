@@ -41,4 +41,4 @@ I used the following libraries:<br>
   - <a href="https://selenium-python.readthedocs.io/">Selenium Python (For adding to the YouTube playlist automation)</a>
 
 # Why did you make it?
-Just for fun :) and it might actually be useful to someone. 
+I wanted to migrate my playlists from Spotify to YouTube Music and I didn't find any good tools out there to do it automatically, so I decided to do it just for fun :) and I thought maybe someone else finds it useful as well.
