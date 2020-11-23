@@ -34,7 +34,7 @@ class SpotifyToYoutube():
 
         self.driver.find_element_by_xpath("//div[@id='openid-buttons']/button").click()
         
-        self.driver.find_element_by_id("identifierId").send_keys(jsonConfig["google"]["mail_address"])
+        self.driver.find_element_by_id("identifierId").send_keys(jsonConfig["google"]["username"])
         self.driver.find_element_by_id("identifierNext").click()
 
         WebDriverWait(self.driver, 3).until(expected_conditions.element_to_be_clickable((By.NAME, "password")))
