@@ -40,7 +40,7 @@ class SpotifyToYoutube():
         WebDriverWait(self.driver, 3).until(expected_conditions.element_to_be_clickable((By.NAME, "password")))
         self.driver.find_element_by_name("password").send_keys(jsonConfig["google"]["password"])
         self.driver.find_element_by_id("passwordNext").click()
-        time.sleep(3)
+        time.sleep(10)
         
     def add_to_playlist(self, url):
         try:
