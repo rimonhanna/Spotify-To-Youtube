@@ -3,12 +3,12 @@
     {
         "client_id": "your_spotify_client_id",
         "client_secret": "your_spotify_client_secret",
-        "playlist": "source_playlist_url"
+        "playlists": ["source_playlist_url"]
     },
     "google":
     {
         "username": "your_youtube_username",
         "password": "your_youtube_password",
-        "playlist": "target_playlist_name"
+        "playlists": ["target_playlist_name"]
     }
 }

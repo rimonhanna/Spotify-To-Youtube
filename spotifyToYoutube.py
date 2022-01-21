@@ -42,10 +42,10 @@ class SpotifyToYoutube():
         self.driver.find_element_by_id("passwordNext").click()
         time.sleep(10)
         
-    def add_to_playlist(self, url):
+    def add_to_playlist(self, song_url, target_playlist):
         try:
             driver = self.driver
-            driver.get(url)
+            driver.get(song_url)
 
             element = driver.find_element_by_xpath("//div[@id='contents']/ytmusic-responsive-list-item-renderer/div[2]/div")
             WebDriverWait(driver, 30).until(expected_conditions.visibility_of(element))
@@ -59,7 +59,7 @@ class SpotifyToYoutube():
             WebDriverWait(driver, 10).until(expected_conditions.visibility_of(element))
             element.click()
 
-            element = driver.find_element_by_xpath("//yt-formatted-string[@title='" + jsonConfig["google"]["playlist"] + "']")
+            element = driver.find_element_by_xpath("//yt-formatted-string[@title='" + target_playlist + "']")
             WebDriverWait(driver, 10).until(expected_conditions.visibility_of(element))
             element.click()
             
@@ -104,8 +104,8 @@ class SpotifyToYoutube():
             condition = counter < results["total"]
         return track_list
 
-    def open_in_youtube_music(self, song_name):
-        self.add_to_playlist('https://music.youtube.com/search?q=' + song_name)
+    def open_in_youtube_music(self, song_name, target_playlist):
+        self.add_to_playlist('https://music.youtube.com/search?q=' + song_name, target_playlist)
 
 # Opening our JSON configuration file (which has our tokens).
 with open("config.json", encoding='utf-8-sig') as json_file:
@@ -114,17 +114,23 @@ with open("config.json", encoding='utf-8-sig') as json_file:
 if (__name__ == "__main__"):
     spotifyToYoutube = SpotifyToYoutube()
     
-    playlist_url = jsonConfig["spotify"]["playlist"]
-    tracks = spotifyToYoutube.get_tracks(playlist_url)
-    
-    print("Searching songs...")
-    songs = []
-    spotifyToYoutube.set_up()
-    spotifyToYoutube.login_to_google()
+    sourcePlaylists = jsonConfig["spotify"]["playlists"]
+    targetPlaylists = jsonConfig["google"]["playlists"]
 
-    for i in tracks:
-        print(i)
-        spotifyToYoutube.open_in_youtube_music(i)
-        
-    print("Migration finished!")
-    spotifyToYoutube.driver.quit()
+    for index, playlist_url in enumerate(sourcePlaylists):
+        print(playlist_url)
+        tracks = spotifyToYoutube.get_tracks(playlist_url)
+    
+        print("Searching songs...")
+        songs = []
+        spotifyToYoutube.set_up()
+        spotifyToYoutube.login_to_google()
+
+        for i in tracks:
+            print(i)
+            targetPlaylist = targetPlaylists[index]
+            print(targetPlaylist)
+            spotifyToYoutube.open_in_youtube_music(i, targetPlaylist)
+            
+        print("Migration finished!")
+        spotifyToYoutube.driver.quit()

@@ -18,13 +18,13 @@ After doing some simple configuration. All you gotta do is insert your <b> >>PUB
     {
         "client_id": "your_spotify_client_id",
         "client_secret": "your_spotify_client_secret",
-        "playlist": "source_playlist_url"
+        "playlists": ["source_playlist_url_1", "source_playlist_url_2"]
     },
     "google":
     {
         "username": "your_youtube_username",
         "password": "your_youtube_password",
-        "playlist": "target_playlist_name"
+        "playlists": ["target_playlist_name_1", "target_playlist_name_2"]
     }
 }
 ```
