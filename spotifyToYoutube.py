@@ -117,20 +117,23 @@ if (__name__ == "__main__"):
     sourcePlaylists = jsonConfig["spotify"]["playlists"]
     targetPlaylists = jsonConfig["google"]["playlists"]
 
-    for index, playlist_url in enumerate(sourcePlaylists):
-        print(playlist_url)
-        tracks = spotifyToYoutube.get_tracks(playlist_url)
-    
-        print("Searching songs...")
-        songs = []
-        spotifyToYoutube.set_up()
-        spotifyToYoutube.login_to_google()
+    if(len(sourcePlaylists) != len(targetPlaylists)):
+        print("Please use the same number of Source and Target playlists")
+    else:
+        for index, playlist_url in enumerate(sourcePlaylists):
+            print(playlist_url)
+            tracks = spotifyToYoutube.get_tracks(playlist_url)
+        
+            print("Searching songs...")
+            songs = []
+            spotifyToYoutube.set_up()
+            spotifyToYoutube.login_to_google()
 
-        for i in tracks:
-            print(i)
-            targetPlaylist = targetPlaylists[index]
-            print(targetPlaylist)
-            spotifyToYoutube.open_in_youtube_music(i, targetPlaylist)
-            
-        print("Migration finished!")
-        spotifyToYoutube.driver.quit()
+            for i in tracks:
+                print(i)
+                targetPlaylist = targetPlaylists[index]
+                print(targetPlaylist)
+                spotifyToYoutube.open_in_youtube_music(i, targetPlaylist)
+                
+            print("Migration finished!")
+            spotifyToYoutube.driver.quit()
