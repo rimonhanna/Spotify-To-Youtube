@@ -5,71 +5,18 @@ import time
 # Spotify library.
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
-
-# Selenium for automation
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support.select import Select
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import NoAlertPresentException
-from selenium.common.exceptions import ElementClickInterceptedException
-from selenium.common.exceptions import TimeoutException
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
+# google library
+from ytmusicapi import YTMusic
 
 class SpotifyToYoutube():
 
-    def set_up(self):
-        self.rootdir = os.path.dirname(os.path.realpath(__file__))
-        self.driver = webdriver.Firefox(executable_path=self.rootdir + '/geckodriver')
-        self.driver.implicitly_wait(30)
-        self.verification_errors = []
-        self.accept_next_alert = True
-
     def login_to_google(self):
-        url = 'https://stackoverflow.com/users/login?ssrc=head&returnurl=https%3a%2f%2fstackoverflow.com%2f'
-        self.driver.get(url)
-
-        self.driver.find_element_by_xpath("//div[@id='openid-buttons']/button").click()
+        ytmusic = YTMusic('ytmusic_headers.json')
+        return ytmusic
         
-        self.driver.find_element_by_id("identifierId").send_keys(jsonConfig["google"]["username"])
-        self.driver.find_element_by_id("identifierNext").click()
-
-        WebDriverWait(self.driver, 3).until(expected_conditions.element_to_be_clickable((By.NAME, "password")))
-        self.driver.find_element_by_name("password").send_keys(jsonConfig["google"]["password"])
-        self.driver.find_element_by_id("passwordNext").click()
-        time.sleep(10)
-        
-    def add_to_playlist(self, song_url, target_playlist):
-        try:
-            driver = self.driver
-            driver.get(song_url)
-
-            element = driver.find_element_by_xpath("//div[@id='contents']/ytmusic-responsive-list-item-renderer/div[2]/div")
-            WebDriverWait(driver, 30).until(expected_conditions.visibility_of(element))
-            element.click()
-
-            element = driver.find_element_by_xpath("(//iron-icon[@id='icon'])[4]")
-            WebDriverWait(driver, 10).until(expected_conditions.visibility_of(element))
-            element.click()
-
-            element = driver.find_element_by_link_text("Add to playlist")
-            WebDriverWait(driver, 10).until(expected_conditions.visibility_of(element))
-            element.click()
-
-            element = driver.find_element_by_xpath("//yt-formatted-string[@title='" + target_playlist + "']")
-            WebDriverWait(driver, 10).until(expected_conditions.visibility_of(element))
-            element.click()
-            
-        except ElementClickInterceptedException:
-            pass
-        except TimeoutException:
-            pass
-        except NoSuchElementException:
-            pass
-
+    def add_to_playlist(self, ytmusic, video_name, target_playlist):
+        search_results = ytmusic.search(video_name)
+        ytmusic.add_playlist_items(target_playlist, [search_results[0]['videoId']])
 
     def get_tracks(self, playlist_url):
         # Creating and authenticating our Spotify app.
@@ -104,9 +51,6 @@ class SpotifyToYoutube():
             condition = counter < results["total"]
         return track_list
 
-    def open_in_youtube_music(self, song_name, target_playlist):
-        self.add_to_playlist('https://music.youtube.com/search?q=' + song_name, target_playlist)
-
 # Opening our JSON configuration file (which has our tokens).
 with open("config.json", encoding='utf-8-sig') as json_file:
     jsonConfig = json.load(json_file)    
@@ -116,24 +60,22 @@ if (__name__ == "__main__"):
     
     sourcePlaylists = jsonConfig["spotify"]["playlists"]
     targetPlaylists = jsonConfig["google"]["playlists"]
+    ytmusic = spotifyToYoutube.login_to_google()
 
     if(len(sourcePlaylists) != len(targetPlaylists)):
         print("Please use the same number of Source and Target playlists")
     else:
         for index, playlist_url in enumerate(sourcePlaylists):
             print(playlist_url)
+            print("Getting tracks...")
             tracks = spotifyToYoutube.get_tracks(playlist_url)
-        
-            print("Searching songs...")
-            songs = []
-            spotifyToYoutube.set_up()
-            spotifyToYoutube.login_to_google()
+            
+            targetPlaylist = targetPlaylists[index]
+            print(targetPlaylist)
+            targetPlaylistId = ytmusic.create_playlist(targetPlaylist, targetPlaylist)
 
-            for i in tracks:
-                print(i)
-                targetPlaylist = targetPlaylists[index]
-                print(targetPlaylist)
-                spotifyToYoutube.open_in_youtube_music(i, targetPlaylist)
+            for track in tracks:
+                print(track)
+                spotifyToYoutube.add_to_playlist(ytmusic, track, targetPlaylistId)
                 
             print("Migration finished!")
-            spotifyToYoutube.driver.quit()

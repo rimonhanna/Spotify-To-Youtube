@@ -18,22 +18,25 @@ After doing some simple configuration. All you gotta do is insert your <b> >>PUB
     {
         "client_id": "your_spotify_client_id",
         "client_secret": "your_spotify_client_secret",
-        "playlists": ["source_playlist_url_1", "source_playlist_url_2"]
+        "playlists": ["source_playlist_id_1", "source_playlist_id_2"]
     },
     "google":
     {
-        "username": "your_youtube_username",
-        "password": "your_youtube_password",
         "playlists": ["target_playlist_name_1", "target_playlist_name_2"]
     }
 }
 ```
 4. Copy Client ID from the spotify app page to the config file replacing your_spotify_client_id
 5. Click on show client secret and copy the client secret from the spotify app page to the config file replacing your_spotify_client_secret
-6. Replace your_youtube_username with your google account username
-7. Replace your_youtube_password with your google account password
-8. Replace target_playlist_name with the name of the playlist you want the tracks to be added to in YouTube music
-9. Finally run the script by copying this command into your terminal window `python3 spotifyToYoutube.py`
+6. Replace target_playlist_name with the name of the playlist you want the tracks to be added to in YouTube music
+7. Copy youtube music authentication headers
+    1. Open a new tab
+    2. Open the developer tools (Ctrl-Shift-I) and select the “Network” tab
+    3. Go to https://music.youtube.com and ensure you are logged in
+    4. Find an authenticated POST request. The simplest way is to filter by /browse using the search bar of the developer tools. If you don’t see the request, try scrolling down a bit or clicking on the library button in the top bar.
+    5. Verify that the request looks like this: Status 200, Method POST, Domain music.youtube.com, File browse?...
+    6. Click on the Name of any matching request. In the “Headers” tab, scroll to the section “Request headers” and copy the value of cookie: to the end of the line and add it to ytmusic_headers.json
+8. Finally run the script by copying this command into your terminal window `python3 spotifyToYoutube.py`
 
 # What did you use to make it? :thinking:
 I used the following libraries:<br>

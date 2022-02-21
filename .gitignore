@@ -2,3 +2,5 @@
 config\.json
 *.log
 env
+config.bck.json
+ytmusic_headers.bck.json
