@@ -29,7 +29,7 @@ After doing some simple configuration. All you gotta do is insert your <b> >>PUB
 4. Copy Client ID from the spotify app page to the config file replacing your_spotify_client_id
 5. Click on show client secret and copy the client secret from the spotify app page to the config file replacing your_spotify_client_secret
 6. Replace target_playlist_name with the name of the playlist you want the tracks to be added to in YouTube music
-7. Copy youtube music authentication headers
+7. Get youtube music authentication headers
     1. Open a new tab
     2. Open the developer tools (Ctrl-Shift-I) and select the “Network” tab
     3. Go to https://music.youtube.com and ensure you are logged in
@@ -41,7 +41,7 @@ After doing some simple configuration. All you gotta do is insert your <b> >>PUB
 # What did you use to make it? :thinking:
 I used the following libraries:<br>
   - <a href="https://github.com/plamere/spotipy">Spotipy (For handling the Spotify API)</a>
-  - <a href="https://selenium-python.readthedocs.io/">Selenium Python (For adding to the YouTube playlist automation)</a>
+  - <a href="https://ytmusicapi.readthedocs.io/en/latest/">ytmusicapi (For adding to the YouTube playlist automation)</a>
 
 # Why did you make it?
 I wanted to migrate my playlists from Spotify to YouTube Music and I didn't find any good tools out there to do it automatically, so I decided to do it just for fun :) and I thought maybe someone else finds it useful as well.
