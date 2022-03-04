@@ -15,7 +15,7 @@ class SpotifyToYoutube():
         return ytmusic
         
     def add_to_playlist(self, ytmusic, video_name, target_playlist):
-        search_results = ytmusic.search(video_name)
+        search_results = ytmusic.search(video_name, "songs") or ytmusic.search(video_name, "videos")
         ytmusic.add_playlist_items(target_playlist, [search_results[0]['videoId']])
 
     def get_tracks(self, playlist_url):
