@@ -7,11 +7,15 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 # google library
 from ytmusicapi import YTMusic
+import requests
+import functools
 
 class SpotifyToYoutube():
 
     def login_to_google(self):
-        ytmusic = YTMusic('ytmusic_headers.json')
+        session = requests.Session()
+        session.request = functools.partial(session.request, timeout=60)
+        ytmusic = YTMusic('ytmusic_headers.json', requests_session=session)
         return ytmusic
         
     def add_to_playlist(self, ytmusic, video_name, target_playlist):
@@ -23,32 +27,35 @@ class SpotifyToYoutube():
         client_credentials_manager = SpotifyClientCredentials(jsonConfig["spotify"]["client_id"], jsonConfig["spotify"]["client_secret"])
         spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
-        condition = True
         track_list = []
-        counter = 0
-        while condition:
-            # Getting a playlist.
-            results = spotify.user_playlist_tracks(user="", playlist_id=playlist_url)
 
-            # For each track in the playlist.
-            for i in results["items"]:
-                # In case there's only one artist.
-                if (i["track"]["artists"].__len__() == 1):
-                    # We add trackName - artist.
-                    track_list.append(i["track"]["name"] + " - " + i["track"]["artists"][0]["name"])
-                # In case there's more than one artist.
-                else:
-                    name_string = ""
-                    # For each artist in the track.
-                    for index, b in enumerate(i["track"]["artists"]):
-                        name_string += (b["name"])
-                        # If it isn't the last artist.
-                        if (i["track"]["artists"].__len__() - 1 != index):
-                            name_string += ", "
-                    # Adding the track to the list.
-                    track_list.append(i["track"]["name"] + " - " + name_string)
-            counter = counter + 100
-            condition = counter < results["total"]
+        # Getting a playlist.
+        results = spotify.user_playlist_tracks(user="", playlist_id=playlist_url)
+        
+        tracks = results['items']
+        while results['next']:
+            results = spotify.next(results)
+            tracks.extend(results['items'])
+
+        # For each track in the playlist.
+        for i in tracks:
+            # In case there's only one artist.
+            if (i["track"]["artists"].__len__() == 1):
+                # We add trackName - artist.
+                track_list.append(i["track"]["name"] + " - " + i["track"]["artists"][0]["name"])
+            # In case there's more than one artist.
+            else:
+                name_string = ""
+                # For each artist in the track.
+                for index, b in enumerate(i["track"]["artists"]):
+                    name_string += (b["name"])
+                    # If it isn't the last artist.
+                    if (i["track"]["artists"].__len__() - 1 != index):
+                        name_string += ", "
+                # Adding the track to the list.
+                track_list.append(i["track"]["name"] + " - " + name_string)
+           
+
         return track_list
 
 # Opening our JSON configuration file (which has our tokens).
