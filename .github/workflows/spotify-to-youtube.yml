@@ -40,16 +40,7 @@ jobs:
         with:
             python-version: '3.9'
 
-      - name: Get python cache
-        uses: actions/cache@v2
-        id: python-env
-        with:
-            path: ~/.cache/pip
-            key: ${{ runner.os }}-venv-${{ hashFiles('./requirements.txt') }}
-            restore-keys: ${{ runner.os }}-venv-
-
       - name: Install python requirements
-        if: steps.python-env.outputs.cache-hit != 'true'
         run: pip install -r './requirements.txt'
 
       - name: Run Migration
