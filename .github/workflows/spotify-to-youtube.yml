@@ -1,0 +1,58 @@
+# Unique name for this workflow
+name: Spotify to Youtube
+
+# Controls when the action will run.
+on:
+    workflow_dispatch:
+      inputs:
+        spotify_client_id:
+          default: ""
+          required: true
+        required: true
+        spotify_client_secret:
+          default: ""
+          required: true
+        spotify_playlists_ids:
+          default: "[]"
+          required: true
+        ytmusic_playlists_names:
+          default: "[]"
+          required: true
+        ytmusic_headers:
+          default: ""
+          required: true
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  spotify-to-youtube:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      ### Python cache ###
+      - name: Set python env
+        uses: actions/setup-python@v2
+        with:
+            python-version: '3.9'
+
+      - name: Get python cache
+        uses: actions/cache@v2
+        id: python-env
+        with:
+            path: ~/.cache/pip
+            key: ${{ runner.os }}-venv-${{ hashFiles('./requirements.txt') }}
+            restore-keys: ${{ runner.os }}-venv-
+
+      - name: Install python requirements
+        if: steps.python-env.outputs.cache-hit != 'true'
+        run: pip install -r './requirements.txt'
+
+      - name: Run Migration
+          shell: bash
+          run: |
+              python3 spotifyToYoutube.py --spotify-client-id "$spotify_client_id" --spotify-client-secret "$spotify_client_secret" --spotify-playlists "$spotify_playlists_ids" --ytmusic-playlists "$ytmusic_playlists_names" --ytmusic-headers "$ytmusic_headers"
