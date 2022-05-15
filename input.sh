@@ -1,3 +1,3 @@
 #!/bin/bash
 
-echo "${{ github.event.inputs }}" > ./inputs.json
+echo "$inputs" > ./inputs.json

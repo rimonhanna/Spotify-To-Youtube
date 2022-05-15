@@ -48,6 +48,8 @@ jobs:
         run: |
             chmod +x ./input.sh
             ./input.sh
+        env:
+          inputs: ${{ github.event.inputs }}
 
       - name: Run Migration
         shell: bash
