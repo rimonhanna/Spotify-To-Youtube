@@ -1,1 +1,3 @@
-echo "${{toJSON(github.event.inputs)}}" > ./inputs.json
+#!/bin/bash
+
+echo "${{ github.event.inputs }}" > ./inputs.json
