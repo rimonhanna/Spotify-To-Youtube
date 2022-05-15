@@ -54,5 +54,5 @@ jobs:
       - name: Run Migration
         shell: bash
         run: |
-            echo "${{ toJSON(github.event.inputs) }}"
-            # python3 spotifyToYoutube.py --spotify-client-id "$spotify_client_id" --spotify-client-secret "$spotify_client_secret" --spotify-playlists '"$spotify_playlists_ids"' --ytmusic-playlists '"$ytmusic_playlists_names"' --ytmusic-headers '"$ytmusic_headers"'
+            echo "$ytmusic_headers"
+            python3 spotifyToYoutube.py --spotify-client-id "$spotify_client_id" --spotify-client-secret "$spotify_client_secret" --spotify-playlists '"$spotify_playlists_ids"' --ytmusic-playlists '"$ytmusic_playlists_names"' --ytmusic-headers '"$ytmusic_headers"'
