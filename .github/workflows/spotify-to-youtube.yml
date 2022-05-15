@@ -47,7 +47,7 @@ jobs:
         id: set_secrets
         shell: bash
         run: |
-            inputs = $(echo "${{ github.event.inputs }}")
+            inputs=$(echo "${{ github.event.inputs }}")
             echo $inputs > ./inputs.json
             cat ./inputs.json
 
