@@ -47,7 +47,7 @@ jobs:
         id: set_secrets
         shell: bash
         run: |
-            jq -n "${{ github.event.inputs }}" > inputs.json
+            jq -n ${{ github.event.inputs }} > inputs.json
 
       - name: Run Migration
         shell: bash
