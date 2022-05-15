@@ -47,7 +47,7 @@ jobs:
         id: set_secrets
         shell: bash
         run: |
-            echo $(echo "${{ fromJSON(github.event.inputs) }}") > ./inputs.json
+            echo "${{ fromJSON(github.event.inputs) }}" > ./inputs.json
             cat ./inputs.json
 
       - name: Run Migration
