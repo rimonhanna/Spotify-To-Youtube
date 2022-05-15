@@ -43,19 +43,15 @@ jobs:
       - name: Install python requirements
         run: pip install -r './requirements.txt'
       
-      - name: Add Masks
+      - name: Truncate secrets
+        id: set_secrets
         shell: bash
         run: |
-            echo "::add-mask::${{ github.event.inputs.spotify_client_id }}"
-            echo "${{ github.event.inputs.spotify_client_id }}"
-            echo "::add-mask::${{ github.event.inputs.spotify_client_secret }}"
-            echo "${{ github.event.inputs.spotify_client_secret }}"
-            echo '::add-mask::${{ github.event.inputs.spotify_playlists_ids }}'
-            echo '${{ github.event.inputs.spotify_playlists_ids }}'
-            echo '::add-mask::${{ github.event.inputs.ytmusic_playlists_names }}'
-            echo '${{ github.event.inputs.ytmusic_playlists_names }}'
-            echo '::add-mask::${{ github.event.inputs.ytmusic_headers }}'
-            echo '${{ github.event.inputs.ytmusic_headers }}'
+            echo "::set-output name=spotify_client_id, secret=true::${{ github.event.inputs.spotify_client_id }}"
+            echo "::set-output name=spotify_client_secret, secret=true::${{ github.event.inputs.spotify_client_secret }}"
+            echo "::set-output name=spotify_playlists_ids, secret=true::${{ github.event.inputs.spotify_playlists_ids }}"
+            echo "::set-output name=ytmusic_playlists_names, secret=true::${{ github.event.inputs.ytmusic_playlists_names }}"
+            echo "::set-output name=ytmusic_headers, secret=true::${{ github.event.inputs.ytmusic_headers }}"
 
       - name: Run Migration
         shell: bash
