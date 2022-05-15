@@ -3,24 +3,23 @@ name: Spotify to Youtube
 
 # Controls when the action will run.
 on:
-    workflow_dispatch:
-      inputs:
-        spotify_client_id:
-          default: ""
-          required: true
+  workflow_dispatch:
+    inputs:
+      spotify_client_id:
+        default: ""
         required: true
-        spotify_client_secret:
-          default: ""
-          required: true
-        spotify_playlists_ids:
-          default: "[]"
-          required: true
-        ytmusic_playlists_names:
-          default: "[]"
-          required: true
-        ytmusic_headers:
-          default: ""
-          required: true
+      spotify_client_secret:
+        default: ""
+        required: true
+      spotify_playlists_ids:
+        default: "[]"
+        required: true
+      ytmusic_playlists_names:
+        default: "[]"
+        required: true
+      ytmusic_headers:
+        default: ""
+        required: true
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
