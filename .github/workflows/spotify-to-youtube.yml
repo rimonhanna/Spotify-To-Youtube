@@ -48,9 +48,9 @@ jobs:
         run: |
             echo "::add-mask::${{ github.event.inputs.spotify_client_id }}"
             echo "::add-mask::${{ github.event.inputs.spotify_client_secret }}"
-            echo "::add-mask::${{ github.event.inputs.spotify_playlists_ids }}"
-            echo "::add-mask::${{ github.event.inputs.ytmusic_playlists_names }}"
-            echo "::add-mask::${{ github.event.inputs.ytmusic_headers }}"
+            echo '::add-mask::${{ github.event.inputs.spotify_playlists_ids }}'
+            echo '::add-mask::${{ github.event.inputs.ytmusic_playlists_names }}'
+            echo '::add-mask::${{ github.event.inputs.ytmusic_headers }}'
 
       - name: Run Migration
         shell: bash
