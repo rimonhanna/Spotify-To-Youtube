@@ -83,6 +83,7 @@ if (__name__ == "__main__"):
     sourcePlaylists = json.loads(args.spotify_playlists) if args.spotify_playlists != None else jsonConfig["spotify"]["playlists"]
     targetPlaylists = json.loads(args.ytmusic_playlists) if args.ytmusic_playlists != None else jsonConfig["google"]["playlists"]
     
+    print(args.ytmusic_headers)
     if args.ytmusic_headers:
         with open('ytmusic_headers.json', 'w', encoding='utf-8') as ytmusic_headers_file:
             json.dump(args.ytmusic_headers, ytmusic_headers_file, ensure_ascii=False, indent=4)
