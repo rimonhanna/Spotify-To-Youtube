@@ -22,9 +22,9 @@ class SpotifyToYoutube():
         search_results = ytmusic.search(video_name, "songs") or ytmusic.search(video_name, "videos")
         ytmusic.add_playlist_items(target_playlist, [search_results[0]['videoId']])
 
-    def get_tracks(self, playlist_url, inputs_json):
+    def get_tracks(self, playlist_url, args):
         # Creating and authenticating our Spotify app.
-        client_credentials_manager = SpotifyClientCredentials(inputs_json.spotify_client_id or jsonConfig["spotify"]["client_id"], inputs_json.spotify_client_secret or jsonConfig["spotify"]["client_secret"])
+        client_credentials_manager = SpotifyClientCredentials(args.spotify_client_id or jsonConfig["spotify"]["client_id"], args.spotify_client_secret or jsonConfig["spotify"]["client_secret"])
         spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
         track_list = []
@@ -75,20 +75,17 @@ def parse_arguments():
 # Opening our JSON configuration file (which has our tokens).
 with open("config.json", encoding='utf-8-sig') as json_file:
     jsonConfig = json.load(json_file)    
-
-with open("inputs.json", encoding='utf-8-sig') as json_file:
-    inputs_json = json.load(json_file)    
     
 if (__name__ == "__main__"):
     args = parse_arguments()
     spotifyToYoutube = SpotifyToYoutube()
     
-    sourcePlaylists = json.loads(inputs_json.spotify_playlists) if inputs_json.spotify_playlists != None else jsonConfig["spotify"]["playlists"]
-    targetPlaylists = json.loads(inputs_json.ytmusic_playlists) if inputs_json.ytmusic_playlists != None else jsonConfig["google"]["playlists"]
+    sourcePlaylists = json.loads(args.spotify_playlists) if args.spotify_playlists != None else jsonConfig["spotify"]["playlists"]
+    targetPlaylists = json.loads(args.ytmusic_playlists) if args.ytmusic_playlists != None else jsonConfig["google"]["playlists"]
     
-    if inputs_json.ytmusic_headers:
+    if args.ytmusic_headers:
         with open('ytmusic_headers.json', 'w', encoding='utf-8') as ytmusic_headers_file:
-            json.dump(json.loads(inputs_json.ytmusic_headers), ytmusic_headers_file, ensure_ascii=False, indent=4)
+            json.dump(json.loads(args.ytmusic_headers), ytmusic_headers_file, ensure_ascii=False, indent=4)
     ytmusic = spotifyToYoutube.login_to_google()
 
     if(len(sourcePlaylists) != len(targetPlaylists)):
@@ -97,7 +94,7 @@ if (__name__ == "__main__"):
         for index, playlist_url in enumerate(sourcePlaylists):
             print(playlist_url)
             print("Getting tracks...")
-            tracks = spotifyToYoutube.get_tracks(playlist_url, inputs_json)
+            tracks = spotifyToYoutube.get_tracks(playlist_url, args)
             
             targetPlaylist = targetPlaylists[index]
             print(targetPlaylist)
