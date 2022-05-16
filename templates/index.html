@@ -243,6 +243,9 @@
       };
 
       xhr.onerror = function () {
+        document.querySelectorAll(".line").forEach(element => 
+            element.classList.add("hidden")
+        );
         alert("Request failed");
       };
     }
