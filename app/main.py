@@ -1,7 +1,7 @@
 #coding: utf-8
 import json
 from flask import Flask, render_template, request
-from ..spotifyToYoutube import SpotifyToYoutube
+from spotifyToYoutube import SpotifyToYoutube
     
 app = Flask(__name__)
 
