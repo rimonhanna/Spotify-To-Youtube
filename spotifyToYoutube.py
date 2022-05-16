@@ -9,7 +9,8 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from ytmusicapi import YTMusic
 import requests
 import functools
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request
+
 
 class SpotifyToYoutube():
 
