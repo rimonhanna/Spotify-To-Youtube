@@ -2,10 +2,6 @@
 import json
 from flask import Flask, render_template, request
 from ..spotifyToYoutube import SpotifyToYoutube
-
-# Opening our JSON configuration file (which has our tokens).
-with open("config.json", encoding='utf-8-sig') as json_file:
-    jsonConfig = json.load(json_file)    
     
 app = Flask(__name__)
 
@@ -20,8 +16,8 @@ def migrate():
         
     spotify_to_youtube = SpotifyToYoutube()
 
-    source_playlists = args.get("spotify_playlists") or jsonConfig["spotify"]["playlists"]
-    target_playlists = args.get("ytmusic_playlists") or jsonConfig["google"]["playlists"]
+    source_playlists = args.get("spotify_playlists")
+    target_playlists = args.get("ytmusic_playlists")
 
     if args.get("ytmusic_headers"):
         with open('ytmusic_headers.json', 'w', encoding='utf-8') as ytmusic_headers_file:
