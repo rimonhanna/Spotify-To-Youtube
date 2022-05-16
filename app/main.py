@@ -78,33 +78,42 @@ def parse_arguments():
 with open("config.json", encoding='utf-8-sig') as json_file:
     jsonConfig = json.load(json_file)    
     
-if (__name__ == "__main__"):
-    args = parse_arguments()
-    spotifyToYoutube = SpotifyToYoutube()
-    
-    sourcePlaylists = json.loads(args.spotify_playlists) if args.spotify_playlists != None else jsonConfig["spotify"]["playlists"]
-    targetPlaylists = json.loads(args.ytmusic_playlists) if args.ytmusic_playlists != None else jsonConfig["google"]["playlists"]
-    
-    if args.ytmusic_headers:
-        with open('ytmusic_headers.json', 'w', encoding='utf-8') as ytmusic_headers_file:
-            json.dump(json.loads(args.ytmusic_headers), ytmusic_headers_file, ensure_ascii=False, indent=4)
-    ytmusic = spotifyToYoutube.login_to_google()
+app = Flask(__name__)
 
-    if(len(sourcePlaylists) != len(targetPlaylists)):
+@app.route('/')
+def home():
+   return render_template('index.html')
+
+
+@app.route('/migrate', methods=['POST'])
+def migrate():
+    args = request.form
+        
+    spotify_to_youtube = SpotifyToYoutube()
+
+    source_playlists = args.get("spotify_playlists") or jsonConfig["spotify"]["playlists"]
+    target_playlists = args.get("ytmusic_playlists") or jsonConfig["google"]["playlists"]
+
+    if args.get("ytmusic_headers"):
+        with open('ytmusic_headers.json', 'w', encoding='utf-8') as ytmusic_headers_file:
+            json.dump(json.loads(args.get("ytmusic_headers")), ytmusic_headers_file, ensure_ascii=False, indent=4)
+    ytmusic = spotify_to_youtube.login_to_google()
+
+    if(len(source_playlists) != len(target_playlists)):
         print("Please use the same number of Source and Target playlists")
     else:
-        for index, playlist_url in enumerate(sourcePlaylists):
+        for index, playlist_url in enumerate(source_playlists):
             print(playlist_url)
             print("Getting tracks...")
-            tracks = spotifyToYoutube.get_tracks(playlist_url, args)
+            tracks = spotify_to_youtube.get_tracks(playlist_url, args)
             
-            targetPlaylist = targetPlaylists[index]
-            print(targetPlaylist)
-            targetPlaylistId = ytmusic.create_playlist(targetPlaylist, targetPlaylist)
+            target_playlist = target_playlists[index]
+            print(target_playlist)
+            target_playlist_id = ytmusic.create_playlist(target_playlist, target_playlist)
 
             for track in tracks:
                 print(track)
-                spotifyToYoutube.add_to_playlist(ytmusic, track, targetPlaylistId)
+                spotify_to_youtube.add_to_playlist(ytmusic, track, target_playlist_id)
                 
             print("Migration finished!")
-    
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
