@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-   scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet">
+    <title>Spotify to YouTube Music</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(to top left, #4A148C, #C51162);
+        background-repeat: cover;
+        height: 100vh;
+        color: white;
+
+      }
+
+      .formContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        color: white;
+        border-radius: 8px 8px;
+        height: 80vh;
+        width: 100%;
+        font-family: 'Roboto', sans-serif;
+      }
+
+      .formContainer h1 {
+        padding: 2vh;
+      }
+
+      input {
+        margin-bottom: 5vh;
+        border-right: none;
+        border-top: none;
+        border-left: none;
+        background-color: transparent;
+        outline: none;
+        color: white;
+        caret-color: white;
+        padding: 6px;
+      }
+
+      input[type=text]::placeholder {
+        text-align: center;
+        color: white;
+        font-family: 'Roboto', sans-serif;
+      }
+
+      input[type=submit] {
+        background: rgba(255, 255, 255, .2);
+        width: 100%;
+        padding: 2vh;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px 4px;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .line1 {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 1vh;
+        background: linear-gradient(to right, #0c002b, #1779ff);
+        animation: anim1 2s linear infinite;
+        overflow: hidden;
+      }
+
+      .line2 {
+        position: absolute;
+        bootom: 0;
+        right: 0;
+        width: 1vh;
+        height: 100%;
+        background: linear-gradient(to bottom, #0c002b, #1779ff);
+        animation: anim2 2s linear infinite;
+        overflow: hidden;
+      }
+
+      .line3 {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1vh;
+        background: linear-gradient(to left, #0c002b, #1779ff);
+        animation: anim3 2s linear infinite;
+        overflow: hidden;
+      }
+
+      .line4 {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 1vh;
+        height: 100%;
+        background: linear-gradient(to top, #0c002b, #1779ff);
+        animation: anim4 2s linear infinite;
+        overflow: hidden;
+      }
+
+      @keyframes anim {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes colors {
+        0% {
+          background-image: radial-gradient(circle, #5f0caa, #da0076, #ff372e, #ef9f00, #a8eb12);
+
+        }
+
+        25% {
+          background-image: linear-gradient(to right top, #5f0caa, #da0076, #ff372e, #ef9f00, #a8eb12);
+
+        }
+
+        50% {
+          background-image: linear-gradient(to right, #5f0caa, #da0076, #ff372e, #ef9f00, #a8eb12);
+
+        }
+
+        75% {
+          background-image: linear-gradient(to right bottom, #5f0caa, #da0076, #ff372e, #ef9f00, #a8eb12);
+
+        }
+
+        100% {
+          background-image: linear-gradient(to bottom, #5f0caa, #da0076, #ff372e, #ef9f00, #a8eb12);
+
+        }
+      }
+
+      @keyframes anim1 {
+        0% {
+          transform: translateX(-100%);
+        }
+
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      @keyframes anim2 {
+        0% {
+          transform: translateY(-100%);
+        }
+
+        100% {
+          transform: translateY(100%);
+        }
+      }
+
+      @keyframes anim3 {
+        0% {
+          transform: translateX(100%);
+        }
+
+        100% {
+          transform: translateX(-100%);
+        }
+      }
+
+      @keyframes anim4 {
+        0% {
+          transform: translateY(100%);
+        }
+
+        100% {
+          transform: translateY(-100%);
+        }
+      }
+    </style>
+  </head>
+
+  <body id="body">
+    <div class="formContainer">
+      <h1>Spotify to YouTube</h1>
+      <form action="/migrate" method="POST" onsubmit="formSubmit(event)">
+
+        <input type="text" id="spotify_client_id" name="spotify_client_id" placeholder="Spotify Client Id" onfocus="this.placeholder=''" onblur="this.placeholder='Spotify Client Id'"><br>
+
+        <input type="text" id="spotify_client_secret" name="spotify_client_secret" placeholder="Spotify Client Secret" onfocus="this.placeholder=''" onblur="this.placeholder='Spotify Client Secret'"><br>
+
+        <input type="text" id="spotify_playlists" name="spotify_playlists" placeholder="Spotify Playlists Ids" onfocus="this.placeholder=''" onblur="this.placeholder='Spotify Playlists Ids'"><br>
+
+        <input type="text" id="ytmusic_playlists" name="ytmusic_playlists" placeholder="YouTube Music Playlists Names" onfocus="this.placeholder=''" onblur="this.placeholder='YouTube Music Playlists Names'"><br>
+
+        <input type="text" id="ytmusic_headers" name="ytmusic_headers" placeholder="YouTube Music Headers" onfocus="this.placeholder=''" onblur="this.placeholder='YouTube Music Headers'"><br>
+        <br>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+    <div class="hidden line line1"></div>
+    <div class="hidden line line2"></div>
+    <div class="hidden line line3"></div>
+    <div class="hidden line line4"></div>
+  </body>
+
+  <script>
+    function formSubmit(event) {
+      event.preventDefault();
+      document.querySelectorAll(".hidden").forEach(element => 
+        element.classList.remove("hidden")
+      );
+      
+      var source = event.target || event.srcElement;
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", '/migrate', true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.send(source);
+
+      xhr.onload = function () {
+        if (xhr.status != 200) { // analyze HTTP status of the response
+          alert(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
+        } else { // show the result
+          alert(`Migration finished`); // response is the server response
+          document.querySelectorAll(".line").forEach(element => 
+            element.classList.add("hidden")
+          );
+        }
+      };
+
+      xhr.onerror = function () {
+        alert("Request failed");
+      };
+    }
+  </script>
+
+</html>

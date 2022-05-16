@@ -7,3 +7,4 @@ six==1.15.0
 spotipy==2.16.1
 urllib3==1.26.5
 ytmusicapi==0.20.0
+Flask==2.1.2
