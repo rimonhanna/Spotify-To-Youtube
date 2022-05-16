@@ -10,8 +10,8 @@ After doing some simple configuration. All you gotta do is insert your <b> >>PUB
     * Log in to your spotify account
     * Click in Create an App
     * Give the app a name and a description and then create the app
-2. When you finish doing that, create a JSON file named "script_config.json" on the project's main folder.
-3. The script_config.json file must have the following format:
+2. When you finish doing that, create a JSON file named "config.json" on the project's main folder.
+3. The config.json file must have the following format:
 ``` 
 {
     "spotify":
