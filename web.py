@@ -19,6 +19,7 @@ def migrate():
     source_playlists = args.get("spotify_playlists")
     target_playlists = args.get("ytmusic_playlists")
 
+    print(args.get("ytmusic_headers"))
     if args.get("ytmusic_headers"):
         with open('ytmusic_headers.json', 'w', encoding='utf-8') as ytmusic_headers_file:
             json.dump(json.loads(args.get("ytmusic_headers")), ytmusic_headers_file, ensure_ascii=False, indent=4)
