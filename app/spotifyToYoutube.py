@@ -74,7 +74,7 @@ def parse_arguments():
     return args
 
 # Opening our JSON configuration file (which has our tokens).
-with open("config.json", encoding='utf-8-sig') as json_file:
+with open("script_config.json", encoding='utf-8-sig') as json_file:
     jsonConfig = json.load(json_file)    
     
 if (__name__ == "__main__"):
