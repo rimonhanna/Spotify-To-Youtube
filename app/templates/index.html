@@ -222,13 +222,13 @@
       xhr.send(source);
 
       xhr.onload = function () {
+        document.querySelectorAll(".line").forEach(element => 
+            element.classList.add("hidden")
+        );
         if (xhr.status != 200) { // analyze HTTP status of the response
           alert(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
         } else { // show the result
           alert(`Migration finished`); // response is the server response
-          document.querySelectorAll(".line").forEach(element => 
-            element.classList.add("hidden")
-          );
         }
       };
 
