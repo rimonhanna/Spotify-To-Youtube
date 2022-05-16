@@ -1,7 +1,5 @@
 #coding: utf-8
-import json
-import os
-import time
+
 # Spotify library.
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
