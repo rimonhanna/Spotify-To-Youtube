@@ -1,16 +1,7 @@
 #coding: utf-8
 import json
-import os
-import time
-# Spotify library.
-import spotipy
-from spotipy.oauth2 import SpotifyClientCredentials
-# google library
-from ytmusicapi import YTMusic
-import requests
-import functools
 from flask import Flask, render_template, request
-from .. import SpotifyToYoutube
+from ..spotifyToYoutube import SpotifyToYoutube
 
 # Opening our JSON configuration file (which has our tokens).
 with open("config.json", encoding='utf-8-sig') as json_file:
