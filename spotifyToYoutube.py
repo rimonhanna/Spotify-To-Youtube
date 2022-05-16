@@ -9,7 +9,6 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from ytmusicapi import YTMusic
 import requests
 import functools
-from flask import Flask, render_template, request
 
 
 class SpotifyToYoutube():
@@ -24,9 +23,9 @@ class SpotifyToYoutube():
         search_results = ytmusic.search(video_name, "songs") or ytmusic.search(video_name, "videos")
         ytmusic.add_playlist_items(target_playlist, [search_results[0]['videoId']])
 
-    def get_tracks(self, playlist_url, args):
+    def get_tracks(self, playlist_url, spotify_client_id, spotify_client_secret):
         # Creating and authenticating our Spotify app.
-        client_credentials_manager = SpotifyClientCredentials(args.get("spotify_client_id") or jsonConfig["spotify"]["client_id"], args.get("spotify_client_secret") or jsonConfig["spotify"]["client_secret"])
+        client_credentials_manager = SpotifyClientCredentials(spotify_client_id or jsonConfig["spotify"]["client_id"], spotify_client_secret or jsonConfig["spotify"]["client_secret"])
         spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
         track_list = []
@@ -96,7 +95,7 @@ if (__name__ == "__main__"):
         for index, playlist_url in enumerate(sourcePlaylists):
             print(playlist_url)
             print("Getting tracks...")
-            tracks = spotifyToYoutube.get_tracks(playlist_url, args)
+            tracks = spotifyToYoutube.get_tracks(playlist_url, args.spotify_client_id, args.spotify_client_secret)
             
             targetPlaylist = targetPlaylists[index]
             print(targetPlaylist)

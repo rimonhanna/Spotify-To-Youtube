@@ -43,7 +43,7 @@ def migrate():
         for index, playlist_url in enumerate(source_playlists):
             print(playlist_url)
             print("Getting tracks...")
-            tracks = spotify_to_youtube.get_tracks(playlist_url, args)
+            tracks = spotify_to_youtube.get_tracks(playlist_url, args.get("spotify_client_id"), args.get("spotify_client_secret"))
             
             target_playlist = target_playlists[index]
             print(target_playlist)
