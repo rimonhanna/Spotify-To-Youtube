@@ -34,7 +34,7 @@
         padding: 2vh;
       }
 
-      input {
+      input, textarea {
         margin-bottom: 5vh;
         border-right: none;
         border-top: none;
@@ -45,8 +45,17 @@
         caret-color: white;
         padding: 6px;
       }
+      input {
+        width: 94%;
+      }
 
       input[type=text]::placeholder {
+        text-align: center;
+        color: white;
+        font-family: 'Roboto', sans-serif;
+      }
+
+      textarea::placeholder {
         text-align: center;
         color: white;
         font-family: 'Roboto', sans-serif;
@@ -189,15 +198,16 @@
       <h1>Spotify to YouTube</h1>
       <form action="/migrate" method="POST" onsubmit="formSubmit(event)">
 
-        <input type="text" id="spotify_client_id" name="spotify_client_id" placeholder="Spotify Client Id" onfocus="this.placeholder=''" onblur="this.placeholder='Spotify Client Id'"><br>
-
-        <input type="text" id="spotify_client_secret" name="spotify_client_secret" placeholder="Spotify Client Secret" onfocus="this.placeholder=''" onblur="this.placeholder='Spotify Client Secret'"><br>
-
-        <input type="text" id="spotify_playlists" name="spotify_playlists" placeholder="Spotify Playlists Ids" onfocus="this.placeholder=''" onblur="this.placeholder='Spotify Playlists Ids'"><br>
-
-        <input type="text" id="ytmusic_playlists" name="ytmusic_playlists" placeholder="YouTube Music Playlists Names" onfocus="this.placeholder=''" onblur="this.placeholder='YouTube Music Playlists Names'"><br>
-
-        <input type="text" id="ytmusic_headers" name="ytmusic_headers" placeholder="YouTube Music Headers" onfocus="this.placeholder=''" onblur="this.placeholder='YouTube Music Headers'"><br>
+        <input type="text" id="spotify_client_id" name="spotify_client_id" placeholder="Spotify Client Id" onfocus="this.placeholder=''" onblur="this.placeholder='Spotify Client Id'">
+        <br>
+        <input type="text" id="spotify_client_secret" name="spotify_client_secret" placeholder="Spotify Client Secret" onfocus="this.placeholder=''" onblur="this.placeholder='Spotify Client Secret'">
+        <br>
+        <input type="text" id="spotify_playlists" name="spotify_playlists" placeholder="Spotify Playlists Ids" onfocus="this.placeholder=''" onblur="this.placeholder='Spotify Playlists Ids'">
+        <br>
+        <input type="text" id="ytmusic_playlists" name="ytmusic_playlists" placeholder="YouTube Music Playlists Names" onfocus="this.placeholder=''" onblur="this.placeholder='YouTube Music Playlists Names'">
+        <br>
+        <textarea id="ytmusic_headers" name="ytmusic_headers" placeholder="YouTube Music Headers" onfocus="this.placeholder=''" onblur="this.placeholder='YouTube Music Headers'"></textarea>
+        <br>
         <br>
         <input type="submit" value="Submit">
       </form>
