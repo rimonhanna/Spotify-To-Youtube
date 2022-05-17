@@ -11,10 +11,10 @@ import functools
 
 class SpotifyToYoutube():
 
-    def login_to_google(self):
+    def login_to_google(self, ytmusic_headers):
         session = requests.Session()
         session.request = functools.partial(session.request, timeout=60)
-        ytmusic = YTMusic('ytmusic_headers.json', requests_session=session)
+        ytmusic = YTMusic(ytmusic_headers, requests_session=session)
         return ytmusic
         
     def add_to_playlist(self, ytmusic, video_name, target_playlist):
