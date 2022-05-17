@@ -196,7 +196,7 @@
   <body id="body">
     <div class="formContainer">
       <h1>Spotify to YouTube</h1>
-      <form action="/migrate" method="POST" onsubmit="formSubmit(event)">
+      <form onsubmit="formSubmit(event)">
 
         <input type="text" id="spotify_client_id" name="spotify_client_id" placeholder="Spotify Client Id" onfocus="this.placeholder=''" onblur="this.placeholder='Spotify Client Id'">
         <br>
@@ -228,12 +228,18 @@
       var source = event.target || event.srcElement;
       const xhr = new XMLHttpRequest();
       xhr.open("POST", '/migrate', true);
-      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-      xhr.send(source);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      let formData = new FormData(source)
+      var object = {};
+      formData.forEach(function(value, key){
+          object[key] = value;
+      });
+      var json = JSON.stringify(object);
+      xhr.send(json);
 
       xhr.onload = function () {
         document.querySelectorAll(".line").forEach(element => 
-            element.classList.add("hidden")
+          element.classList.add("hidden")
         );
         if (xhr.status != 200) { // analyze HTTP status of the response
           alert(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
@@ -244,7 +250,7 @@
 
       xhr.onerror = function () {
         document.querySelectorAll(".line").forEach(element => 
-            element.classList.add("hidden")
+          element.classList.add("hidden")
         );
         alert("Request failed");
       };
