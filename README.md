@@ -23,6 +23,16 @@ After doing some simple configuration. All you gotta do is insert your <b> >>PUB
     4. Find an authenticated POST request. The simplest way is to filter by /browse using the search bar of the developer tools. If you don’t see the request, try scrolling down a bit or clicking on the library button in the top bar.
     5. Verify that the request looks like this: Status 200, Method POST, Domain music.youtube.com, File browse?...
     6. Click on the Name of any matching request. In the “Headers” tab, scroll to the section “Request headers” and copy the value of cookie: to the end of the line and add it to ytmusic music headers field in the spotify-ytmusic page
+        ``` 
+        {
+            "accept": "*/*",
+            "accept-language": "en-GB,en;q=0.9,en-US;q=0.8",
+            "cookie": "",
+            "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36 Edg/98.0.1108.51",
+            "x-goog-authuser": "0",
+            "x-origin": "https://music.youtube.com"
+        }
+        ``` 
 9. Finally press submit and wait a few minutes until the migration is done (this can take a while depending on how big your playlists are)
 
 # The hard way
