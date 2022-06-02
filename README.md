@@ -35,6 +35,10 @@ After doing some simple configuration. All you gotta do is insert your <b> >>PUB
         ``` 
 9. Finally press submit and wait a few minutes until the migration is done (this can take a while depending on how big your playlists are)
 
+## Buy me coffee
+If you have enjoyed using this, consider buying me a coffee?
+https://paypal.me/payrimon
+
 ## The hard way
 ### Setting up the tools
 1. If you don't have firefox please install it from https://www.mozilla.org/en-US/firefox/new/
@@ -68,7 +72,7 @@ After doing some simple configuration. All you gotta do is insert your <b> >>PUB
 3. Go to https://open.spotify.com/ and open the spotify playlist you intend to copy/migrate in the browser, make it public or shareable, and then copy its id (the right most part of the link/url in the address bar e.g. 7EQFI3982FGL) to the config file replacing `source_playlist_id`
 4. Copy Client ID from the spotify app page to the config file replacing `your_spotify_client_id`
 5. Click on show client secret and copy the client secret from the spotify app page to the config file replacing `your_spotify_client_secret`
-6. Add your Spotify source IDs - you can find it at the end of the Spotify URI (see above) for an artist, track, album, etc. Example: 6rqhFgbbKwnb9MLmUQDhG6)
+6. Add your Spotify source IDs - you can find it at the end of the Spotify URI (see above) for an artist, track, album, etc. Example: 6rqhFgbbKwnb9MLmUQDhG6
 7. Replace target_playlist_name with the name of the playlist you want the tracks to be added to in YouTube music
 8. Get youtube music authentication headers
     1. Open a new tab
