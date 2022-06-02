@@ -35,8 +35,8 @@ After doing some simple configuration. All you gotta do is insert your <b> >>PUB
         ``` 
 9. Finally press submit and wait a few minutes until the migration is done (this can take a while depending on how big your playlists are)
 
-# The hard way
-## Setting up the tools
+## The hard way
+### Setting up the tools
 1. If you don't have firefox please install it from https://www.mozilla.org/en-US/firefox/new/
 2. If you don't have python installed (Mac comes with python preinstalled) then please install it from https://www.python.org/downloads/
 3. Go to https://github.com/rimonhanna/Spotify-To-Youtube
@@ -44,7 +44,7 @@ After doing some simple configuration. All you gotta do is insert your <b> >>PUB
 5. Open Terminal/Command Prompt then navigate to the folder of the extracted folder using cd path_to_folder for example cd ~/Downloads/Spotify-To-Youtube-master/ 
 6. Then copy and paste the following command into Terminal/Command prompt pip install -r requirements.txt
 7. You're now all set and ready to use start migrating your playlists
-## Migrating your playlists
+### Migrating your playlists
 1. To use the script, you gotta register an app as a developer on Spotify.
     * Go to this link https://developer.spotify.com/dashboard/
     * Log in to your spotify account
