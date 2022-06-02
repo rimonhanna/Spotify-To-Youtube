@@ -196,20 +196,20 @@
   <body id="body">
     <div class="formContainer">
       <h1>Spotify to YouTube</h1>
-      <form onsubmit="formSubmit(event)">
+      <form onsubmit="formSubmit(event)" role="form">
 
-        <input type="text" id="spotify_client_id" name="spotify_client_id" placeholder="Spotify Client Id" onfocus="this.placeholder=''" onblur="this.placeholder='Spotify Client Id'">
+        <input type="text" id="spotify_client_id" name="spotify_client_id" placeholder="Spotify Client Id" onfocus="this.placeholder=''" onblur="this.placeholder='Spotify Client Id'"  required />
         <br>
-        <input type="text" id="spotify_client_secret" name="spotify_client_secret" placeholder="Spotify Client Secret" onfocus="this.placeholder=''" onblur="this.placeholder='Spotify Client Secret'">
+        <input type="text" id="spotify_client_secret" name="spotify_client_secret" placeholder="Spotify Client Secret" onfocus="this.placeholder=''" onblur="this.placeholder='Spotify Client Secret'"  required />
         <br>
-        <input type="text" id="spotify_playlists" name="spotify_playlists" placeholder="Spotify Playlists Ids" onfocus="this.placeholder=''" onblur="this.placeholder='Spotify Playlists Ids'">
+        <input type="text" id="spotify_playlists" name="spotify_playlists" placeholder="Spotify Playlists Ids" onfocus="this.placeholder=''" onblur="this.placeholder='Spotify Playlists Ids'"  required />
         <br>
-        <input type="text" id="ytmusic_playlists" name="ytmusic_playlists" placeholder="YouTube Music Playlists Names" onfocus="this.placeholder=''" onblur="this.placeholder='YouTube Music Playlists Names'">
+        <input type="text" id="ytmusic_playlists" name="ytmusic_playlists" placeholder="YouTube Music Playlists Names" onfocus="this.placeholder=''" onblur="this.placeholder='YouTube Music Playlists Names'"  required />
         <br>
-        <textarea id="ytmusic_headers" name="ytmusic_headers" placeholder="YouTube Music Headers" onfocus="this.placeholder=''" onblur="this.placeholder='YouTube Music Headers'"></textarea>
+        <textarea id="ytmusic_headers" name="ytmusic_headers" placeholder="YouTube Music Headers" onfocus="this.placeholder=''" onblur="this.placeholder='YouTube Music Headers'"  required></textarea>
         <br>
         <br>
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" />
       </form>
     </div>
     <div class="hidden line line1"></div>
