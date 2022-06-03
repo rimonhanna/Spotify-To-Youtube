@@ -234,6 +234,7 @@
       formData.forEach(function(value, key){
           object[key] = value;
       });
+      object.ytmusic_headers = object.ytmusic_headers.replace(/(\r\n|\n|\r)/gm,"");
       var json = JSON.stringify(object);
       xhr.send(json);
 
