@@ -41,8 +41,9 @@ def migrate():
             print(target_playlist)
             target_playlist_id = ytmusic.create_playlist(target_playlist, target_playlist)
 
-            for track in tracks:
+            for track_index, track in enumerate(tracks):
+                print("Track", track_index + 1, "out of", len(tracks))
                 spotify_to_youtube.add_to_playlist(ytmusic, track, target_playlist_id)
                 
-            print("Migration finished!")
-            return json.dumps({'success':True}), 200, response_content_type
+        print("Migration finished!")
+        return json.dumps({'success':True}), 200, response_content_type
