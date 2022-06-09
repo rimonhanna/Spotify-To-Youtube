@@ -11,7 +11,7 @@ After doing some simple configuration. All you gotta do is insert your <b> >>PUB
     * Log in to your spotify account
     * Click in Create an App
     * Give the app a name and a description and then create the app
-2. Go to https://spotify-ytmusic.herokuapp.com/
+2. Go to https://spotifyytmusic.pythonanywhere.com/
 4. Copy Client ID from the spotify app page to spotify-ytmusic page
 5. Click on show client secret and copy the client secret from the spotify app page to spotify-ytmusic page
 6. Add your Spotify source artist, track, album IDs you want to migrate in this format ["6rqhFgbbKwnb9MLmUQDhG6", "abWkfFgbbKwnUQDhG6"] - you can find it at the end of the Spotify URI for an artist, track, album, etc. Example: 6rqhFgbbKwnb9MLmUQDhG6
