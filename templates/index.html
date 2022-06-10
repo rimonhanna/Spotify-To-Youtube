@@ -229,6 +229,7 @@
       const xhr = new XMLHttpRequest();
       xhr.open("POST", '/migrate', true);
       xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.responseType = 'json';
       let formData = new FormData(source)
       var object = {};
       formData.forEach(function(value, key){
@@ -242,8 +243,8 @@
         document.querySelectorAll(".line").forEach(element => 
           element.classList.add("hidden")
         );
-        if (xhr.status != 200) { // analyze HTTP status of the response
-          alert(`Error ${xhr.status}: ${xhr.statusText}`); // e.g. 404: Not Found
+        if (xhr.response.success == false) { // analyze HTTP status of the response
+          alert(`Error ${xhr.status}: ${xhr.response.message}`); // e.g. 404: Not Found
         } else { // show the result
           alert(`Migration finished`); // response is the server response
         }
