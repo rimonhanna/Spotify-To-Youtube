@@ -31,6 +31,8 @@ class SpotifyToYoutube():
         # Getting a playlist.
         results = spotify.user_playlist_tracks(user="", playlist_id=playlist_url)
         
+        print("Results:", results)
+        
         tracks = results['items']
         while results['next']:
             results = spotify.next(results)
