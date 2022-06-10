@@ -36,6 +36,7 @@ def migrate():
             return make_response(jsonify(success= False, message= 'Please use the same number of Source and Target playlists'), 500)
         else:
             for index, playlist_url in enumerate(source_playlists):
+                playlist_url = playlist_url.split("?")[0]
                 print(playlist_url)
                 print("Getting tracks...")
                 tracks = spotify_to_youtube.get_tracks(playlist_url, args.get("spotify_client_id"), args.get("spotify_client_secret"))
