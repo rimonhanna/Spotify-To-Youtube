@@ -19,7 +19,8 @@ class SpotifyToYoutube():
         
     def add_to_playlist(self, ytmusic, video_name, target_playlist):
         search_results = ytmusic.search(video_name, "songs") or ytmusic.search(video_name, "videos")
-        ytmusic.add_playlist_items(target_playlist, [search_results[0]['videoId']])
+        if len(search_results) > 0:
+            ytmusic.add_playlist_items(target_playlist, [search_results[0]['videoId']])
 
     def get_tracks(self, playlist_url, spotify_client_id, spotify_client_secret):
         # Creating and authenticating our Spotify app.
@@ -31,30 +32,28 @@ class SpotifyToYoutube():
         # Getting a playlist.
         results = spotify.user_playlist_tracks(user="", playlist_id=playlist_url)
         
-        print("Results:", results)
-        
         tracks = results['items']
         while results['next']:
             results = spotify.next(results)
             tracks.extend(results['items'])
 
         # For each track in the playlist.
-        for i in tracks:
+        for track in tracks:
             # In case there's only one artist.
-            if (i["track"]["artists"].__len__() == 1):
+            if (track["track"]["artists"].__len__() == 1):
                 # We add trackName - artist.
-                track_list.append(i["track"]["name"] + " - " + i["track"]["artists"][0]["name"])
+                track_list.append(track["track"]["name"] + " - " + track["track"]["artists"][0]["name"])
             # In case there's more than one artist.
             else:
                 name_string = ""
                 # For each artist in the track.
-                for index, b in enumerate(i["track"]["artists"]):
-                    name_string += (b["name"])
+                for index, artist in enumerate(track["track"]["artists"]):
+                    name_string += (artist["name"])
                     # If it isn't the last artist.
-                    if (i["track"]["artists"].__len__() - 1 != index):
+                    if (track["track"]["artists"].__len__() - 1 != index):
                         name_string += ", "
                 # Adding the track to the list.
-                track_list.append(i["track"]["name"] + " - " + name_string)
+                track_list.append(track["track"]["name"] + " - " + name_string)
            
 
         return track_list
