@@ -6,6 +6,7 @@ from spotipy.oauth2 import SpotifyClientCredentials
 # google library
 from ytmusicapi import YTMusic
 import requests
+import traceback
 import functools
 
 class SpotifyToYoutube():
@@ -38,26 +39,30 @@ class SpotifyToYoutube():
 
         # For each track in the playlist.
         for track in tracks:
-            if(track == None or track["track"] == None):
-                print(track)
-            elif(track["track"]["artists"] == None):
-                print(track["track"])
-                track_list.append(track["track"]["name"])
-            # In case there's only one artist.
-            elif (len(track["track"]["artists"]) == 1):
-                # We add trackName - artist.
-                track_list.append(track["track"]["name"] + " - " + track["track"]["artists"][0]["name"])
-            # In case there's more than one artist.
-            else:
-                name_string = ""
-                # For each artist in the track.
-                for index, artist in enumerate(track["track"]["artists"]):
-                    name_string += (artist["name"])
-                    # If it isn't the last artist.
-                    if (len(track["track"]["artists"]) - 1 != index):
-                        name_string += ", "
-                # Adding the track to the list.
-                track_list.append(track["track"]["name"] + " - " + name_string)
+            try:
+                if(track == None or track["track"] == None):
+                    print(track)
+                elif(track["track"]["artists"] == None):
+                    print(track["track"])
+                    track_list.append(track["track"]["name"])
+                # In case there's only one artist.
+                elif (len(track["track"]["artists"]) == 1):
+                    # We add trackName - artist.
+                    track_list.append(track["track"]["name"] + " - " + track["track"]["artists"][0]["name"])
+                # In case there's more than one artist.
+                else:
+                    name_string = ""
+                    # For each artist in the track.
+                    for index, artist in enumerate(track["track"]["artists"]):
+                        name_string += (artist["name"])
+                        # If it isn't the last artist.
+                        if (len(track["track"]["artists"]) - 1 != index):
+                            name_string += ", "
+                    # Adding the track to the list.
+                    track_list.append(track["track"]["name"] + " - " + name_string)
+            except Exception as e:
+                print("An exception occurred:", e)
+                traceback.print_exc()
            
 
         return track_list
