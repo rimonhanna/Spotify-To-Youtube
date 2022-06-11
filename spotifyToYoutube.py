@@ -20,7 +20,16 @@ class SpotifyToYoutube():
     def add_to_playlist(self, ytmusic, video_name, target_playlist):
         search_results = ytmusic.search(video_name, "songs") or ytmusic.search(video_name, "videos")
         if len(search_results) > 0:
-            ytmusic.add_playlist_items(target_playlist, [search_results[0]['videoId']])
+            retries = 3
+            while retries != 0:
+                try:
+                    ytmusic.add_playlist_items(target_playlist, [search_results[0]['videoId']])
+                    retries = 0
+                except Exception as e:
+                    print("An exception occurred:", e)
+                    traceback.print_exc()
+                    retries -= 1
+                
 
     def get_tracks(self, playlist_url, spotify_client_id, spotify_client_secret):
         # Creating and authenticating our Spotify app.
