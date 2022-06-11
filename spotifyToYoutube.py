@@ -38,8 +38,11 @@ class SpotifyToYoutube():
 
         # For each track in the playlist.
         for track in tracks:
+            if(track["track"]["artists"] == None):
+                print(track["track"])
+                track_list.append(track["track"]["name"])
             # In case there's only one artist.
-            if (track["track"]["artists"].__len__() == 1):
+            elif (len(track["track"]["artists"]) == 1):
                 # We add trackName - artist.
                 track_list.append(track["track"]["name"] + " - " + track["track"]["artists"][0]["name"])
             # In case there's more than one artist.
@@ -49,7 +52,7 @@ class SpotifyToYoutube():
                 for index, artist in enumerate(track["track"]["artists"]):
                     name_string += (artist["name"])
                     # If it isn't the last artist.
-                    if (track["track"]["artists"].__len__() - 1 != index):
+                    if (len(track["track"]["artists"]) - 1 != index):
                         name_string += ", "
                 # Adding the track to the list.
                 track_list.append(track["track"]["name"] + " - " + name_string)
