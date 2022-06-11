@@ -38,7 +38,9 @@ class SpotifyToYoutube():
 
         # For each track in the playlist.
         for track in tracks:
-            if(track["track"]["artists"] == None):
+            if(track == None or track["track"] == None):
+                print(track)
+            elif(track["track"]["artists"] == None):
                 print(track["track"])
                 track_list.append(track["track"]["name"])
             # In case there's only one artist.
