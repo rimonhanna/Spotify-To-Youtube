@@ -8,7 +8,6 @@ from ytmusicapi import YTMusic
 import requests
 import functools
 
-
 class SpotifyToYoutube():
 
     def login_to_google(self, ytmusic_headers):

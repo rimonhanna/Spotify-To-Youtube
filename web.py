@@ -2,7 +2,8 @@
 import json
 from flask import Flask, render_template, request, jsonify, make_response
 from spotifyToYoutube import SpotifyToYoutube
-    
+import traceback
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -22,6 +23,7 @@ def migrate():
         target_playlists = json.loads(args.get("ytmusic_playlists"))
     except Exception as e:
         print("An exception occurred:", e)
+        traceback.print_exc()
         return make_response(make_response(jsonify(success= False, message= str(e) + ', make sure that spotify_playlists and ytmusic_playlists are in the correct format ["playlist_1", "playlist_2"] including the square brackets, qoutes and comma separators'), 500))
     
     try:  
@@ -54,4 +56,5 @@ def migrate():
     
     except Exception as e:
         print("An exception occurred:", e)
+        traceback.print_exc()
         return make_response(make_response(jsonify(success= False, message= str(e)), 500))
