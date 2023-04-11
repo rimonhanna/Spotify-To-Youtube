@@ -32,7 +32,7 @@ if (__name__ == "__main__"):
     if args.ytmusic_headers:
         with open('ytmusic_headers.json', 'w', encoding='utf-8') as ytmusic_headers_file:
             json.dump(json.loads(args.ytmusic_headers), ytmusic_headers_file, ensure_ascii=False, indent=4)
-    ytmusic = spotifyToYoutube.login_to_google()
+    ytmusic = spotifyToYoutube.login_to_google('ytmusic_headers.json')
 
     if(len(sourcePlaylists) != len(targetPlaylists)):
         print("Please use the same number of Source and Target playlists")
