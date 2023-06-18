@@ -35,10 +35,6 @@ After doing some simple configuration. All you gotta do is insert your <b> >>PUB
         ``` 
 9. Finally press submit and wait a few minutes until the migration is done (this can take a while depending on how big your playlists are) -->
 
-## Buy me coffee
-If you have enjoyed using this, consider buying me a coffee?
-https://paypal.me/payrimon
-
 <!-- ## The hard way -->
 ### Setting up the tools
 1. If you don't have firefox please install it from https://www.mozilla.org/en-US/firefox/new/
@@ -88,6 +84,9 @@ If you got an error that python(3) was not found:
     *  If you're using macOS catalina or newer (using zshrc) you can use this in the terminal `echo "alias python=/usr/local/bin/python3.9" >> ~/.zshrc` 
     *  If you're using an older version of macOS then use this in the terminal instead `echo "alias python=/usr/local/bin/python3.9" >> ~/.bashrc`
     *  If you're using windows you could follow this simple guide https://datatofish.com/add-python-to-windows-path/
+## Buy me coffee
+If you have enjoyed using this, consider buying me a coffee?
+https://paypal.me/payrimon
 # What did you use to make it? :thinking:
 I used the following libraries:<br>
   - <a href="https://github.com/plamere/spotipy">Spotipy (For handling the Spotify API)</a>
