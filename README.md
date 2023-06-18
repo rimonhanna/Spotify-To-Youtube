@@ -5,7 +5,7 @@ A simplistic way to find songs from a Spotify playlist and add them to a YouTube
 After doing some simple configuration. All you gotta do is insert your <b> >>PUBLIC<< </b> <a href="http://www.spotify.com">Spotify</a> playlist URL in the configuration file, then the app will automatically search all songs from that playlist on  <a href="http://music.youtube.com">YouTube Music</a> and automatically add them to a playlist of your choice. Check below for instructions on how to make it work:
 
 # How to use it?
-## The easy way
+<!-- ## The easy way
 1. To use the script, you gotta register an app as a developer on Spotify.
     * Go to this link https://developer.spotify.com/dashboard/
     * Log in to your spotify account
@@ -33,13 +33,13 @@ After doing some simple configuration. All you gotta do is insert your <b> >>PUB
           "x-origin": "https://music.youtube.com"
         }
         ``` 
-9. Finally press submit and wait a few minutes until the migration is done (this can take a while depending on how big your playlists are)
+9. Finally press submit and wait a few minutes until the migration is done (this can take a while depending on how big your playlists are) -->
 
 ## Buy me coffee
 If you have enjoyed using this, consider buying me a coffee?
 https://paypal.me/payrimon
 
-## The hard way
+<!-- ## The hard way -->
 ### Setting up the tools
 1. If you don't have firefox please install it from https://www.mozilla.org/en-US/firefox/new/
 2. If you don't have python installed (Mac comes with python preinstalled) then please install it from https://www.python.org/downloads/
