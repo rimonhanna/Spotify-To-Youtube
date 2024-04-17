@@ -49,9 +49,9 @@ After doing some simple configuration. All you gotta do is insert your <b> >>PUB
     * Log in to your spotify account
     * Click in Create an App
     * Give the app a name and a description and then create the app
-2. Go to https://open.spotify.com/ and open the spotify playlist you intend to copy/migrate in the browser, make it public or shareable, and then copy its id (the right most part of the link/url in the address bar e.g. 7EQFI3982FGL) to the config file replacing `source_playlist_id`
-3. Copy Client ID from the spotify app page to the config file replacing `your_spotify_client_id`
-4. Click on show client secret and copy the client secret from the spotify app page to the config file replacing `your_spotify_client_secret`
+2. Go to https://open.spotify.com/ and open the spotify playlist you intend to copy/migrate in the browser, make it public or shareable, and then copy its id (the right most part of the link/url in the address bar e.g. 7EQFI3982FGL) to the web page's `source_playlist_id`
+3. Copy Client ID from the spotify app page to web page's `your_spotify_client_id`
+4. Click on show client secret and copy the client secret from the spotify app page to the web page's replacing `your_spotify_client_secret`
 5. Add your Spotify source IDs - you can find it at the end of the Spotify URI (see above) for an artist, track, album, etc. Example: 6rqhFgbbKwnb9MLmUQDhG6
 6. Replace target_playlist_name with the name of the playlist you want the tracks to be added to in YouTube music
 7. Get youtube music authentication headers
@@ -68,9 +68,27 @@ If you got an error that python(3) was not found:
     *  If you're using macOS catalina or newer (using zshrc) you can use this in the terminal `echo "alias python=/usr/local/bin/python3.9" >> ~/.zshrc` 
     *  If you're using an older version of macOS then use this in the terminal instead `echo "alias python=/usr/local/bin/python3.9" >> ~/.bashrc`
     *  If you're using windows you could follow this simple guide https://datatofish.com/add-python-to-windows-path/
+
 ## Buy me coffee
 If you have enjoyed using this, consider buying me a coffee?
 https://paypal.me/payrimon
+
+## Advanced Mode
+Go to your extracted folder "Spotify-To-Youtube-master" and open the file `config.json` with any text editor and add the values there instead of the web page, use the runLocally.py file instead with the command `python runLocally.py`
+``` 
+{
+    "spotify":
+    {
+        "client_id": "your_spotify_client_id",
+        "client_secret": "your_spotify_client_secret",
+        "playlists": ["source_playlist_id_1", "source_playlist_id_2"]
+    },
+    "google":
+    {
+        "playlists": ["target_playlist_name_1", "target_playlist_name_2"]
+    }
+}
+```
 # What did you use to make it? :thinking:
 I used the following libraries:<br>
   - <a href="https://github.com/plamere/spotipy">Spotipy (For handling the Spotify API)</a>
