@@ -31,7 +31,13 @@ def migrate():
             return make_response(jsonify(success= False, message= 'Missing YouTube Music Headers'), 500)
         
         spotify_to_youtube = SpotifyToYoutube()
-        ytmusic = spotify_to_youtube.login_to_google(args.get("ytmusic_headers"))
+        
+        with open('ytmusic_headers.json', 'r+') as ytmusic_headers_file:
+            data = json.load(ytmusic_headers_file)
+            data["cookie"] = args.get("ytmusic_headers")
+            ytmusic_headers_file.seek(0)
+            json.dump(data, ytmusic_headers_file, ensure_ascii=False, indent=4)
+        ytmusic = spotify_to_youtube.login_to_google('ytmusic_headers.json')
 
         if len(source_playlists) != len(target_playlists):
             print("Please use the same number of Source and Target playlists")
