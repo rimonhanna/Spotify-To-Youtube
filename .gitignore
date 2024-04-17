@@ -2,5 +2,6 @@
 *.log
 env
 venv
+.cache
 *.bck.json
 __pycache__
