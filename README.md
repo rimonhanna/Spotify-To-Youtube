@@ -11,7 +11,8 @@ After doing some simple configuration. All you gotta do is insert your <b> >>PUB
 3. Go to https://github.com/rimonhanna/Spotify-To-Youtube
 4. Click on the green button called Code, then click on Download Zip, unzip/extract the file to the folder of your choosing
 5. Open Terminal/Command Prompt then navigate to the folder of the extracted folder using `cd path_to_folder` for example `cd ~/Downloads/Spotify-To-Youtube-master/`
-6. You're now all set and ready to use start migrating your playlists
+6. Finally run the script by copying this command `./run.sh` into your command prompt if you're using windows and this command in the terminal window `./run.sh` if you're using macOS. 
+7. You're now all set and ready to use start migrating your playlists
 ### Migrating your playlists
 1. To use the script, you gotta register an app as a developer on Spotify.
     * Go to this link https://developer.spotify.com/dashboard/
@@ -30,7 +31,6 @@ After doing some simple configuration. All you gotta do is insert your <b> >>PUB
     4. Find an authenticated POST request. The simplest way is to filter by /browse using the search bar of the developer tools. If you don’t see the request, try scrolling down a bit or clicking on the library button in the top bar.
     5. Verify that the request looks like this: Status 200, Method POST, Domain music.youtube.com, File browse?...
     6. Click on the Name of any matching request. In the “Headers” tab, scroll to the section “Request headers” and copy the value of cookie: to the end of the line and add it to ytmusic_headers.json
-8. Finally run the script by copying this command `./run.sh` into your command prompt if you're using windows and this command in the terminal window `./run.sh` if you're using macOS. 
 
 If you got an error that python(3) was not found:
 *  You need to add the python 3.x you just installed to the system PATH
