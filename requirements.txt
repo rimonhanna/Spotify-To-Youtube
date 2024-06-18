@@ -4,7 +4,7 @@ idna==3.7
 requests==2.31.0
 six==1.16.0
 spotipy==2.22.1
-urllib3==1.26.18
+urllib3==1.26.19
 ytmusicapi==0.20.0
 Flask==2.2.5
 gunicorn==22.0.0
